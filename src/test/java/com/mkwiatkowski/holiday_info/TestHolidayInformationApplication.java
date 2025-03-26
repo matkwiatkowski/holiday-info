@@ -1,4 +1,4 @@
-package com.mkwiatkowski.holiday_information;
+package com.mkwiatkowski.holiday_info;
 
 import org.springframework.boot.SpringApplication;
 
