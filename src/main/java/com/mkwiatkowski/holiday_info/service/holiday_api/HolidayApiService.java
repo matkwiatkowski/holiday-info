@@ -4,6 +4,7 @@ import com.mkwiatkowski.holiday_info.config.holiday_api.HolidayApiProperties;
 import com.mkwiatkowski.holiday_info.exceptions.holiday_api.HolidayApiException;
 import com.mkwiatkowski.holiday_info.model.holiday_api.HolidayApiHoliday;
 import com.mkwiatkowski.holiday_info.model.holiday_api.HolidayApiResponse;
+import com.mkwiatkowski.holiday_info.service.ExternalHolidayService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -25,7 +26,7 @@ import java.util.Optional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class HolidayApiService {
+public class HolidayApiService implements ExternalHolidayService<HolidayApiHoliday> {
 
     private final RestTemplate restTemplate;
     private final HolidayApiProperties properties;
@@ -55,8 +56,8 @@ public class HolidayApiService {
                     .orElse(Collections.emptyList());
         } catch (RestClientException | InvalidUrlException e) {
             log.error("Exception occurred while calling Holiday API.", e);
-            throw new HolidayApiException("Holiday API call failed, please contact support for more details. Message: "
-                    + e.getMessage());
+            throw new HolidayApiException(
+                    "Holiday API call failed, please contact support for more details. Message: " + e.getMessage());
         }
     }
 
@@ -82,6 +83,4 @@ public class HolidayApiService {
             throw new HolidayApiException(errorMessage);
         }
     }
-
-    // TODO: Locale.IsoCountryCode
 }

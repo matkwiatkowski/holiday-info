@@ -34,14 +34,17 @@ class HolidayApiServiceTest {
     private static final Integer YEAR = 2024;
     private static final String COUNTRY_CODE = "US";
     private static final String API_KEY = "some-api-key";
+
     private static final String BASE_URL = "http://holiday-api:8080";
     private static final String EXAMPLE_URL = buildHolidayApiUrl();
+
     private static final HolidayApiHoliday HOLIDAY = new HolidayApiHolidayDataBuilder()
             .withName("Some holiday")
             .build();
     private static final HolidayApiHoliday HOLIDAY_2 = new HolidayApiHolidayDataBuilder()
             .withName("Another holiday")
             .build();
+
     private static final ResponseEntity<HolidayApiResponse> SINGLE_HOLIDAY_RESPONSE =
             new ResponseEntity<>(new HolidayApiResponse(List.of(HOLIDAY)), HttpStatus.OK);
     private static final ResponseEntity<HolidayApiResponse> MULTIPLE_HOLIDAY_RESPONSE =

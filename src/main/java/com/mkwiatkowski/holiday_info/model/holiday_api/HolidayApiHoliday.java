@@ -2,6 +2,7 @@ package com.mkwiatkowski.holiday_info.model.holiday_api;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.mkwiatkowski.holiday_info.model.HolidayData;
 
 import java.time.LocalDate;
 
@@ -38,5 +39,20 @@ import java.time.LocalDate;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record HolidayApiHoliday(@JsonProperty String name, @JsonProperty LocalDate date, @JsonProperty String country,
-                                @JsonProperty("public") Boolean isPublic) {
+                                @JsonProperty("public") Boolean isPublic) implements HolidayData {
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public LocalDate getDate() {
+        return date;
+    }
+
+    @Override
+    public String getCountryCode() {
+        return country;
+    }
 }

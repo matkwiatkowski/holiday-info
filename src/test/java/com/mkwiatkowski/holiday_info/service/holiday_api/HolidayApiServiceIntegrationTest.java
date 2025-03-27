@@ -1,8 +1,10 @@
 package com.mkwiatkowski.holiday_info.service.holiday_api;
 
 import com.mkwiatkowski.holiday_info.HolidayInformationApplication;
+import com.mkwiatkowski.holiday_info.model.HolidayData;
 import com.mkwiatkowski.holiday_info.model.holiday_api.HolidayApiHoliday;
 import com.mkwiatkowski.holiday_info.model.holiday_api.HolidayApiHolidayDataBuilder;
+import com.mkwiatkowski.holiday_info.service.ExternalHolidayService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -78,7 +80,7 @@ class HolidayApiServiceIntegrationTest {
     private RestTemplate restTemplate;
 
     @Autowired
-    private HolidayApiService holidayApiService;
+    private ExternalHolidayService externalHolidayService;
 
     private MockRestServiceServer mockServer;
 
@@ -96,7 +98,7 @@ class HolidayApiServiceIntegrationTest {
                         .body(SERVER_RESPONSE));
 
 
-        List<HolidayApiHoliday> result = holidayApiService.getForYear(COUNTRY_CODE, YEAR);
+        List<HolidayData> result = externalHolidayService.getForYear(COUNTRY_CODE, YEAR);
 
         assertThat(result)
                 .isNotEmpty()

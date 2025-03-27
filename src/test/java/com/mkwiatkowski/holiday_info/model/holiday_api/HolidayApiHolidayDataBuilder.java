@@ -4,7 +4,9 @@ import java.time.LocalDate;
 
 public class HolidayApiHolidayDataBuilder {
 
-    private String name = "Thanksgiving";
+    private static int instanceNumber = 0;
+
+    private String name = "holiday-" + ++instanceNumber;
     private LocalDate date = LocalDate.of(2024, 11, 28);
     private String country = "US";
     private Boolean isPublic = true;
