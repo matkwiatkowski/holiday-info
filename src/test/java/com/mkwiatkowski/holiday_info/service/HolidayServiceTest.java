@@ -19,8 +19,10 @@ import java.util.Set;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.lenient;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -153,6 +155,7 @@ class HolidayServiceTest {
         assertThrows(BadRequestException.class,
                 () -> holidayService.getUpcoming(Collections.emptySet(), FROM_DATE),
                 "Country codes have to be specified.");
+        verify(externalHolidayService, never()).getForYear(anyString(), anyInt());
     }
 
     @Test
@@ -160,6 +163,7 @@ class HolidayServiceTest {
         assertThrows(BadRequestException.class,
                 () -> holidayService.getUpcoming(null, FROM_DATE),
                 "Country codes have to be specified.");
+        verify(externalHolidayService, never()).getForYear(anyString(), anyInt());
     }
 
     @Test
@@ -167,6 +171,7 @@ class HolidayServiceTest {
         assertThrows(BadRequestException.class,
                 () -> holidayService.getUpcoming(Set.of("invalid-code", US_CODE, PL_CODE), FROM_DATE),
                 "Some country codes are invalid: invalid-code");
+        verify(externalHolidayService, never()).getForYear(anyString(), anyInt());
     }
 
     @Test
@@ -174,6 +179,7 @@ class HolidayServiceTest {
         assertThrows(BadRequestException.class,
                 () -> holidayService.getUpcoming(Set.of("invalid-code", "not-a-code", PL_CODE), FROM_DATE),
                 "Some country codes are invalid: invalid-code, not-a-code");
+        verify(externalHolidayService, never()).getForYear(anyString(), anyInt());
     }
 
     @Test
@@ -181,6 +187,7 @@ class HolidayServiceTest {
         assertThrows(BadRequestException.class,
                 () -> holidayService.getUpcoming(Set.of(US_CODE, DE_CODE), null),
                 "Date have to be specified");
+        verify(externalHolidayService, never()).getForYear(anyString(), anyInt());
     }
 
     @Test

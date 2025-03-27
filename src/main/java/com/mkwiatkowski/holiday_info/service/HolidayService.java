@@ -3,6 +3,7 @@ package com.mkwiatkowski.holiday_info.service;
 import com.mkwiatkowski.holiday_info.exceptions.BadRequestException;
 import com.mkwiatkowski.holiday_info.model.HolidayData;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -18,6 +19,10 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Uses external services to get holiday data and filter them with given criteria.
+ */
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class HolidayService {
@@ -38,6 +43,8 @@ public class HolidayService {
      * @throws BadRequestException when parameter are invalid or missing
      */
     public Map<String, HolidayData> getUpcoming(Set<String> countryCodes, LocalDate from) {
+        log.debug("Searching upcoming holidays for {} after {}", countryCodes, from);
+
         validateParams(countryCodes, from);
 
         int year = from.getYear();
@@ -52,6 +59,7 @@ public class HolidayService {
             year++;
         } while (from.getYear() + yearsLimit > year);
 
+        log.debug("Reached the year search limit");
         return new HashMap<>();
     }
 
